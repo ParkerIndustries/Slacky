@@ -4,7 +4,10 @@ import Plus from '@material-ui/icons/AddCircleOutline'
 import AddIcon from '@material-ui/icons/Add'
 import { sidebarItems } from '../data/SidebarData'
 
-function Sidebar() {
+function Sidebar(props) {
+
+    console.log(props);
+
     return (
         <Container>
             <Workspace>
@@ -31,12 +34,13 @@ function Sidebar() {
                     <AddIcon />
                 </NewChannel>
                 <ChannelsList>
-                    <Channel>
-                        # Channel 1
-                    </Channel>
-                    <Channel>
-                        # Channel 2
-                    </Channel>
+                    {
+                        props.rooms.map(item => (
+                            <Channel>
+                                # {item.name}
+                            </Channel>
+                        ))
+                    }
                 </ChannelsList>
             </ChannelsContainer>
         </Container>

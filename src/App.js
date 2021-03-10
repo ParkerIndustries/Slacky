@@ -11,7 +11,7 @@ import db from './firebase'
 function App() {
 
   const [rooms, setRooms] = useState([])
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   const getChannels = () => {
     db.collection('rooms').onSnapshot((snapshot) => {
@@ -26,25 +26,22 @@ function App() {
     getChannels();
   }, [])
 
-  console.log(rooms);
+  console.log("User in App state", user);
 
   return (
     <div className="App">
       <Router>
         {
           !user ? 
-          <Login />
+          <Login setUser={setUser}/>
           :
           <Container>
-            <Header />
+            <Header user={user}/>
             <Main>
               <Sidebar rooms={rooms} />
               <Switch>
                 <Route path="/room">
                   <Chat />
-                </Route>
-                <Route path="/">
-                  <Login />
                 </Route>
               </Switch>
             </Main>
